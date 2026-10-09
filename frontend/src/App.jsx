@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { BUILDINGS } from './data/board.js';
 import { findRoute } from './utils/routing.js';
+import useGeolocation from './hooks/useGeolocation.js';
 import BoardMap from './components/BoardMap.jsx';
 import ControlPanel from './components/ControlPanel.jsx';
 import RouteSummary from './components/RouteSummary.jsx';
@@ -13,6 +14,8 @@ export default function App() {
   const [endEntranceId, setEndEntranceId] = useState(null);
   const [avoidStairs, setAvoidStairs] = useState(false);
   const [navigating, setNavigating] = useState(false);
+  const [liveTracking, setLiveTracking] = useState(false);
+  const { position: userPosition, status: locationStatus, start: startLocation } = useGeolocation();
 
   const start = BUILDINGS.find((b) => b.id === startId) ?? null;
   const end = BUILDINGS.find((b) => b.id === endId) ?? null;
@@ -44,22 +47,43 @@ export default function App() {
   // the camera out from under a route that no longer exists — leave nav
   // mode instead of following a route that just vanished underneath it.
   useEffect(() => {
-    if (!route) setNavigating(false);
+    if (!route) {
+      setNavigating(false);
+      setLiveTracking(false);
+    }
   }, [route]);
 
   const noRouteWarning = Boolean(startId && endId && !sameBuilding && !route);
 
   return (
     <div className="app-shell">
-      <BoardMap route={route} startId={startId} endId={endId} navigating={navigating} destinationName={end?.name} />
+      <BoardMap
+        route={route}
+        startId={startId}
+        endId={endId}
+        navigating={navigating}
+        liveTracking={liveTracking}
+        destinationName={end?.name}
+        userPosition={userPosition}
+        locationStatus={locationStatus}
+        onRequestLocation={startLocation}
+      />
       <RouteSummary
         route={route}
         destinationName={end?.name}
         navigating={navigating}
+        liveTracking={liveTracking}
         onStart={() => setNavigating(true)}
-        onEnd={() => setNavigating(false)}
+        onStartLive={() => {
+          startLocation();
+          setLiveTracking(true);
+        }}
+        onEnd={() => {
+          setNavigating(false);
+          setLiveTracking(false);
+        }}
       />
-      {!navigating && (
+      {!navigating && !liveTracking && (
         <ControlPanel
           buildings={BUILDINGS}
           start={start}
@@ -74,6 +98,9 @@ export default function App() {
           onAvoidStairsChange={setAvoidStairs}
           sameBuildingWarning={sameBuilding}
           noRouteWarning={noRouteWarning}
+          userPosition={userPosition}
+          locationStatus={locationStatus}
+          onNeedLocation={startLocation}
         />
       )}
     </div>
