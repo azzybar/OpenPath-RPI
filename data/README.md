@@ -10,17 +10,20 @@ The intended organization of this file is for all nodes that specify a location 
 
 Buildings will have an id that is to be used by the pathfinder, a name for displaying to users, an array of entrances, each with its own id and information, in order to find, not only the shortest path, but also the most accessible. The features list four variables: accessible, which refers to inside the building; the presence or absence of stairs and/or a ramp; and buttons, which contains a boolean array. The first element representing the outside push button and the second for the inside one.
 
-Path nodes only have id and elevation fields, with location nodes also having an elevation field. The purpose for this is to calculate an approximate gradient between two points, that will be stored by a corresponding edge.
+Path nodes only have id, coordinations, and elevation fields (in meters). The entrances for the location nodes will also have coordinates and an elevation node (in meters). For the coordinates, they will be organized latitude first then longitude (latitude, longitude) The purpose for this is to calculate an approximate gradient between two points, that will be stored by a corresponding edge.
+
+> [!NOTE]
+> For the JSON files, any units that are not coordinates or gradients will be using the metric system.
 
 ```json
 {
-    "id": {
-        "id": "id",
+    "L##": {
+        "id": "L##",
         "name": "building",
         "entrances": [{
-            "id": "id1",
+            "id": "L##A",
             "coordinates": [0.0, 0.0],
-            "elevation": 0,
+            "elevation": 0.0,
             "features": {
                 "accessible": false,
                 "stairs": false,
@@ -28,9 +31,9 @@ Path nodes only have id and elevation fields, with location nodes also having an
                 "buttons": [false, false]
             }
         }, {
-            "id": "id2",
+            "id": "L##B",
             "coordinates": [0.0, 0.0],
-            "elevation": 0,
+            "elevation": 0.0,
             "features": {
                 "accessible": false,
                 "stairs": false,
@@ -39,9 +42,10 @@ Path nodes only have id and elevation fields, with location nodes also having an
             }
         }]
     },
-    "id": {
-        "id": "id",
-        "elevation": 0
+    "N###": {
+        "id": "N###",
+        "coordinates": [0.0, 0.0],
+        "elevation": 0.0
     }
 }
 ```
@@ -85,10 +89,10 @@ The edges follow a similar layout to the workflow (`workflow.jpg`) with some cha
 
 ```json
 {
-    "id": {
+    "E0###": {
         "from": "from",
         "to": "to",
-        "distance": "distance",
+        "distance": 0.0,
         "features": {
             "paved": false,
             "stairs": false,
@@ -105,6 +109,9 @@ In terms of naming, each edge will be prefixed with E0, followed by a three digi
 For time sake, I will personally fill out the locations.json for the buildings listed in the [ARN.txt](/docs/ARN.txt) file. Then I will record all path nodes that are reasonable and near each building and do the following calculations for the corresponding edges.
 
 There is no viable way to automate the second part, unless there is something niche for that, and these properties should remain relatively static.
+
+> [!NOTE]
+> Like mentioned previously, distance will also be in metric units (meters). And regarding the gradient for both nodes and edges, they will be in degrees.
 
 ## Thoughts and Future Planning
 
