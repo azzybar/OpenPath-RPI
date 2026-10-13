@@ -56,6 +56,26 @@ The intent of this naming is to have the pathfinder to identify nodes by the len
 > [!IMPORTANT]
 > For this specific document, the path nodes should start after the last number for the location nodes; therefore, no two nodes should share the same number.
 
+### Current Location IDs
+
+With the current [ARN.txt](/docs/ARN.txt), here are the contents of the file with the appropriate id for each building. While the numbering is based off the ordering of the file, in reality, the numbering of buildings should not mattered as long as each has its own unique id.
+
+```
+ARN: area right now
+we're doing the radius 0.1 miles around carnegie (photo in proposal)
+buildings inside:
+- Carnegie [L01]
+- Walker Lab [L02]
+- Sage Lab [L03]
+- Pittsburg [L04]
+- EMPAC [L05]
+- West Hall [L06]
+- Amos Eaton [L07]
+- Lally [L08]
+- Library [L09]
+- VCC [L10]
+```
+
 ## Edge Data Layout (`paths.json`)
 
 The edges follow a similar layout to the workflow (`workflow.jpg`) with some changes. Following some previous comments by other team members, there is a features object, similar to the one in the location nodes, detailing attributes such as: ground quality, presence of stairs or ramps at any point, whether it is currently blocked off for any reason (construction happens a lot in a specific area), and the gradient or steepness overall. 
@@ -82,7 +102,7 @@ The edges follow a similar layout to the workflow (`workflow.jpg`) with some cha
 
 In terms of naming, each edge will be prefixed with E0, followed by a three digit number, starting from 001 to 999. Since edges are entirely separate, or should be at least, from the nodes, there is no worry over the same number being used. Regarding location nodes, the main id will be listed in the edge, and it is up to the pathfinder to go through that location's array of entrances and find the most suitable one.
 
-For time sake, I will personally fill out the locations.json for the buildings listed in the [ARN.txt](docs/ARN.txt) file. Then I will record all path nodes that are reasonable and near each building and do the following calculations for the corresponding edges.
+For time sake, I will personally fill out the locations.json for the buildings listed in the [ARN.txt](/docs/ARN.txt) file. Then I will record all path nodes that are reasonable and near each building and do the following calculations for the corresponding edges.
 
 There is no viable way to automate the second part, unless there is something niche for that, and these properties should remain relatively static.
 
