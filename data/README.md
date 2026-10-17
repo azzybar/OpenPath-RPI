@@ -123,6 +123,14 @@ Other advanced features would involve modifying existing nodes to reflect real l
 
 The target is for future use, in the case of either scope expansion or administrative adoption, whoever is in charge of the data itself would have a relatively straightforward way of changing it when needed.
 
+### Additional Location Names
+
+RPI is known for having a bunch of abbreviations or acronyms, to the point that there is a dedicated website just for explaining those abbreviations. In addition, some buildings are not known by what RPI lists as their official name. What would help in people trying navigate campus would be if several aliases guaranteed the same location.
+
+While most of the locations' names could easily be checked to see if the user's search matches it works well, some are a bit more difficult. For example, both EMPAC and the VCC are currently listed by their abbreviations in `locations.json`. Despite those being what the buildings are referred to the most, someone entering "Voorhees Computing Center" would not get the intended building.
+
+Of course, this could be done in many ways, and it is not an urgent issue, but might be useful to think about in the future, or if a user wished to know exactly what the abbreviation stood for.
+
 ## Links
 
 Link to similar past project: [RPI Atlas](https://github.com/rgtdthrd/RPI-Atlas)
@@ -135,4 +143,4 @@ Contributor: Azrael Baram ([azzybar](https://github.com/azzybar/OpenPath-RPI))
 
 Upstream Repo: [OpenPath-RPI](https://github.com/veronica-michelle/OpenPath-RPI)
 
-Updated: 7 October 2026
+Updated: 16 October 2026

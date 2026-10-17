@@ -10,7 +10,7 @@
                 "accessible": false,
                 "stairs": false,
                 "ramp": true,
-                "buttons": [true, true]
+                "buttons": [traue, true]
             }
         }]
     },
@@ -94,13 +94,13 @@
         "name": "EMPAC",
         "entrances": [{
             "id": "L05A",
-            "coordinates": [0.0, 0.0],
-            "elevation": 0,
+            "coordinates": [42.7289147, -73.6832852],
+            "elevation": 64.78,
             "features": {
                 "accessible": false,
                 "stairs": false,
                 "ramp": false,
-                "buttons": [false, false]
+                "buttons": [true, true]
             }
         }]
     },
